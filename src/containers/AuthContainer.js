@@ -1,27 +1,20 @@
-import axios from "axios";
 import React, { useState } from "react";
+import jwt_decode from "jwt-decode";
 import '../App.css';
+import { signIn } from "../services/AuthService";
 
 const AuthContainer = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
 
     const Auth = async () => {
-        let formField = new FormData()
-
-        formField.append('username', username)
-        formField.append('password', password)
-
-        await axios({
-            method: 'post',
-            url: 'http://127.0.0.1:8000/api/v1/sign-in/',
-            data: formField,
-        }).then((response) => {
-            console.log(response.data)
-        }).catch((error) => {
-            console.log(error.response)
-        })
+       let response = await signIn(username, password)
+       let newResponse = jwt_decode(response.access)
+       console.log(newResponse)
     }
+
+    const handleUsername = (event) => {setUsername(event.target.value)}
+    const handlePassword = (event) => {setPassword(event.target.value)}
 
     return (
         <div className="sign-up">
@@ -33,7 +26,7 @@ const AuthContainer = () => {
                     value={username}
                     placeholder='Enter your username'
                     size='25'
-                    onChange= {(e) => setUsername(e.target.value)}
+                    onChange= {handleUsername}
                 />
             </div>
             <span>Password: </span>
@@ -44,7 +37,7 @@ const AuthContainer = () => {
                     value={password}
                     placeholder='Enter your password'
                     size='25'
-                    onChange = {(e) => setPassword(e.target.value)}
+                    onChange = {handlePassword}
                 />
             </div>
             <div>

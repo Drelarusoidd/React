@@ -1,10 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import AuthContainer from './containers/AuthContainer';
+import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <AuthContainer />
-  </React.StrictMode>
-);
+root.render(<App />);
