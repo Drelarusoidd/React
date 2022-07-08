@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import jwt_decode from "jwt-decode";
 import '../App.css';
 import { signIn } from "../services/AuthService";
+import FormControl from '@mui/material/FormControl';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 const AuthContainer = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
 
     const Auth = async () => {
-       let response = await signIn(username, password)
-       let newResponse = jwt_decode(response.access)
-       console.log(newResponse)
+       await signIn(username, password)
     }
 
     const handleUsername = (event) => {setUsername(event.target.value)}
@@ -18,30 +18,36 @@ const AuthContainer = () => {
 
     return (
         <div className="sign-up">
-            <span>Username:</span>
             <div>
-                <input
-                    type='text'
-                    name='username'
-                    value={username}
-                    placeholder='Enter your username'
-                    size='25'
-                    onChange= {handleUsername}
-                />
-            </div>
-            <span>Password: </span>
-            <div>
-                <input
-                    type='password'
-                    name='password'
-                    value={password}
-                    placeholder='Enter your password'
-                    size='25'
-                    onChange = {handlePassword}
-                />
+                <FormControl sx={{m: 0.5, width: '100%' }} variant="outlined">
+                    <TextField 
+                        id="outlined-basic" 
+                        label="Username"
+                        name="username"
+                        value={username}
+                        variant="outlined" 
+                        type="text"
+                        onChange={handleUsername}
+                    />
+                </FormControl>
             </div>
             <div>
-                <button className="button" onClick={Auth}>Login</button>
+                <FormControl sx={{m: 0.5, width: '100%' }} variant="outlined">
+                    <TextField 
+                        id="outlined-basic" 
+                        label="Password"
+                        name="password"
+                        value={password}
+                        variant="outlined" 
+                        type="password"
+                        onChange={handlePassword}
+                    />
+                </FormControl>
+            </div>
+            <div>
+                <FormControl sx={{m: 1, width: '30%'}} variant="outlined">
+                    <Button variant="contained" color="success" onClick={Auth}>Login</Button>
+                </FormControl>
             </div>
         </div>
     );
