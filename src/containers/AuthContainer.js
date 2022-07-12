@@ -4,13 +4,17 @@ import { signIn } from "../services/AuthService";
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { useNavigate } from "react-router-dom";
 
 const AuthContainer = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    const navigate = useNavigate()
 
     const Auth = async () => {
        await signIn(username, password)
+       navigate('/');
+       window.location.reload(); // need to update navbar menu items after log in 
     }
 
     const handleUsername = (event) => {setUsername(event.target.value)}

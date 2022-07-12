@@ -13,6 +13,7 @@ const Logout = () => {
     useEffect (() => {
         if (LogoutButton()) {
             navigate('/');
+            window.location.reload(); // need to update navbar menu items after logout 
         }
     })
 }

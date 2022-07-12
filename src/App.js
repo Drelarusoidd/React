@@ -3,10 +3,12 @@ import AuthContainer from './containers/AuthContainer';
 import RegisterContainer from "./containers/RegisterContainer";
 import ShowTracks from './components/showTracks';
 import Logout from './containers/LogoutContainer';
+import NavBar from "./components/navBar";
 
 export default function App (){
     return (
         <BrowserRouter>
+        <NavBar />
             <Routes>
                 <Route path="/register" element={<RegisterContainer/>} />
                 <Route path="/login" element={<AuthContainer/>} />
