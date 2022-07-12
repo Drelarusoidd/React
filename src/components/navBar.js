@@ -14,7 +14,7 @@ export default function NavBar() {
     const [isLogin, SetIsLogin] = useState(false);
 
     useEffect(() => {
-        let token = localStorage.getItem('access');
+        const token = localStorage.getItem('access');
         if (token) {
             SetIsLogin(true);
         } else {
