@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import httpClient from "../services/httpClient";
 import {useParams} from "react-router-dom";
-import "../player.js"
+import "../App.css";
+import "../player.js";
+import Reactions from "../containers/ReactionsContatiner";
 import Pagination from "react-js-pagination";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -13,12 +15,17 @@ const NewsComponent = () => {
     const pk = params.pk
     const [news, setNews] = useState({})
     const [page, setPage] = useState(1)
+    const [user, setUser] = useState({})
 
     useEffect(() =>{
         const getNews = async() => {
-            await httpClient.get(`/feed/${pk}/?page=${page.toString()}`)
+            httpClient.get(`/feed/${pk}/?page=${page.toString()}`)
                 .then((response) => {
                     setNews(response.data);
+                    httpClient.get('/profile/')
+                        .then((response) => {
+                            setUser(response.data);
+                        })
             })
         }
         getNews();
@@ -34,6 +41,8 @@ const NewsComponent = () => {
         }
     }
 
+    const reaction = (author) => author != user.id
+
     if (Number(news.count) > 5){
         return(
             <>
@@ -42,6 +51,12 @@ const NewsComponent = () => {
                         <CardContent>
                             <Typography variant="h5" component="div">
                                 {post.title}
+                            </Typography>
+                            <Typography variant="body2" component="div">
+                                {reaction(post.user)
+                                    ? <Reactions  user={user} post={post} disabled={''} />
+                                    : <Reactions user={user} post={post} disabled={'disabled'} />
+                                }
                             </Typography>
                             <Typography variant="body2">
                                 {post.text}
@@ -76,6 +91,12 @@ const NewsComponent = () => {
                         <CardContent>
                             <Typography variant="h5" component="div" key={index}>
                                 {post.title}
+                            </Typography>
+                            <Typography variant="body2" component="div">
+                                {reaction(post.user)
+                                    ? <Reactions  user={user} post={post} disabled={''} />
+                                    : <Reactions user={user} post={post} disabled={'disabled'} />
+                                }
                             </Typography>
                             <Typography variant="body2">
                                 {post.text}
