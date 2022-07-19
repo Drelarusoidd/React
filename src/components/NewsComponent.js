@@ -17,6 +17,8 @@ const NewsComponent = () => {
     const [page, setPage] = useState(1)
     const [user, setUser] = useState({})
 
+    const handlePageNumber = (pageNumber) => {setPage(pageNumber)}
+
     useEffect(() =>{
         const getNews = async() => {
             httpClient.get(`/feed/${pk}/?page=${page.toString()}`)
@@ -31,17 +33,22 @@ const NewsComponent = () => {
         getNews();
     }, [page])
 
-    const handlePageNumber = (pageNumber) => {setPage(pageNumber)}
 
     const typeLink = (data, index) => {
         if (data?.type === 'track'){
             return <Player index={index} trackUrl={data?.track} cover={data?.cover} id={data?.id} />
         }else if (data?.type === 'image'){
-            return <span><img src={`http://127.0.0.1:8000${data?.link}`} style={{width: '200px'}} alt="cover"/><br></br><br></br></span>
+            return <span><img src={process.env.REACT_APP_BACKEND_URL + data?.link} style={{width: '200px'}} alt="cover"/><br></br><br></br></span>
         }
     }
 
-    const reaction = (author) => author != user.id
+    const reaction = (author) => {
+        if (author != user.id ){
+            return ""
+        }else{
+            return "disabled"
+        }
+    }
 
     if (Number(news.count) > 5){
         return(
@@ -53,10 +60,7 @@ const NewsComponent = () => {
                                 {post.title}
                             </Typography>
                             <Typography variant="body2" component="div">
-                                {reaction(post.user)
-                                    ? <Reactions  user={user} post={post} disabled={''} />
-                                    : <Reactions user={user} post={post} disabled={'disabled'} />
-                                }
+                                <Reactions user={user} post={post} disabled={reaction(post.user)} />
                             </Typography>
                             <Typography variant="body2">
                                 {post.text}
@@ -93,10 +97,7 @@ const NewsComponent = () => {
                                 {post.title}
                             </Typography>
                             <Typography variant="body2" component="div">
-                                {reaction(post.user)
-                                    ? <Reactions  user={user} post={post} disabled={''} />
-                                    : <Reactions user={user} post={post} disabled={'disabled'} />
-                                }
+                                <Reactions user={user} post={post} disabled={reaction(post.user)} />
                             </Typography>
                             <Typography variant="body2">
                                 {post.text}
