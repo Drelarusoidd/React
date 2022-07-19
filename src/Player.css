@@ -1,0 +1,133 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  body{
+      overflow-x: hidden;
+  }
+  
+  .row {
+    height: 100%;
+    min-height: 100%;
+  }
+  
+  .audio-player {
+      background: #eee;
+      border: 1px solid #dfdfdf;
+      width: 100%;
+      height: 100px;
+      text-align: center;
+      display: flex;
+      flex-flow: row;
+  }
+  
+  .audio-player .album-image {
+      min-height: 100px;
+      width: 100px;
+      background-size: cover;
+  }
+  
+  .audio-player .player-controls {
+      align-items: center;
+      justify-content: center;
+      flex: 3;
+  }
+  
+  .audio-player .player-controls progress {
+      width: 90%;
+  }
+  
+  .audio-player .player-controls progress[value] {
+      -webkit-appearance: none;
+      appearance: none;
+      background-color: white;
+      color: blue;
+      height: 7px;
+      width: 80%;
+  }
+  
+  .audio-player .player-controls progress[value]::-webkit-progress-bar {
+      background-color: white;
+      border-radius: 4px;
+      border: 1px solid #dfdfdf;
+      color: #f50;
+  }
+  
+  .audio-player .player-controls progress::-webkit-progress-value {
+      background-color: #f50;
+  }
+  
+  .audio-player .player-controls p {
+      font-size: 1.6rem;
+  }
+  
+  .audio-player .button {
+      background-image: url("https://raw.githubusercontent.com/Keyamoon/IcoMoon-Free/d006795ede82361e1bac1ee76f215cf1dc51e4ca/SVG/278-play2.svg");
+      background-size: cover;
+      width: 40px;
+      height: 40px;
+      margin: 1rem 0 1rem 1.2rem;
+  }
+  
+  .audio-player .pause {
+      background-image: url("https://raw.githubusercontent.com/Keyamoon/IcoMoon-Free/d006795ede82361e1bac1ee76f215cf1dc51e4ca/SVG/279-pause.svg");
+      background-size: cover;
+      width: 40px;
+      height: 40px;
+      margin: 1rem 0 1rem 1.2rem;
+  }
+  
+  .audio-player .mute {
+      background-image: url("https://www.svgrepo.com/show/389505/volume-x.svg");
+      background-size: cover;
+      margin: 4rem 0 0 1.2rem;
+      width: 25px;
+      height: 25px;
+  }
+  
+  .audio-player .unmute {
+      background-image: url("https://www.svgrepo.com/show/349927/volume-2.svg");
+      background-size: cover;
+      margin: 4rem 0 0 1rem;
+      width: 25px;
+      height: 25px;
+  }
+  
+  .audio-player .previous{
+      background-image: url("https://www.svgrepo.com/show/361817/previous.svg");
+      background-size: cover;
+      margin: 4rem 0 0 -3.3rem;
+      width: 30px;
+      height: 30px;
+  }
+  
+  .audio-player .next{
+      background-image: url("https://www.svgrepo.com/show/361807/next.svg");
+      background-size: cover;
+      margin: 4rem 0 0 0.3rem;
+      width: 30px;
+      height: 30px;
+  }
+  
+  .audio-player .volume-slider {
+      display: none;
+      position: relative;
+      top: 0.2rem;
+      left: -1.1rem;
+      margin-bottom: 10%;
+      width: 10px;
+      height: 60px;
+      background: white;
+      transform: rotate(180deg);
+      z-index: 2;
+  }
+  
+  .audio-player .volume-percent {
+      background-color: #f50;
+      border-bottom: 2px solid;
+      height: 100%;
+      width: 100%;
+      z-index: 3;
+  }
+  
