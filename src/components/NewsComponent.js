@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import httpClient from "../services/httpClient";
 import {useParams} from "react-router-dom";
-import "../player.js"
+import "../App.css";
+import "../player.js";
+import Reactions from "../containers/ReactionsContatiner";
 import Pagination from "react-js-pagination";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -13,24 +15,37 @@ const NewsComponent = () => {
     const pk = params.pk
     const [news, setNews] = useState({})
     const [page, setPage] = useState(1)
+    const [user, setUser] = useState({})
+
+    const handlePageNumber = (pageNumber) => {setPage(pageNumber)}
 
     useEffect(() =>{
         const getNews = async() => {
-            await httpClient.get(`/feed/${pk}/?page=${page.toString()}`)
+            httpClient.get(`/feed/${pk}/?page=${page.toString()}`)
                 .then((response) => {
                     setNews(response.data);
+                    httpClient.get('/profile/')
+                        .then((response) => {
+                            setUser(response.data);
+                        })
             })
         }
         getNews();
     }, [page])
 
-    const handlePageNumber = (pageNumber) => {setPage(pageNumber)}
-
     const typeLink = (data, index) => {
         if (data?.type === 'track'){
             return <Player index={index} trackUrl={data?.track} cover={data?.cover} id={data?.id} />
         }else if (data?.type === 'image'){
-            return <span><img src={`http://127.0.0.1:8000${data?.link}`} style={{width: '200px'}} alt="cover"/><br></br><br></br></span>
+            return <span><img src={process.env.REACT_APP_BACKEND_URL + data?.link} style={{width: '200px'}} alt="cover"/><br></br><br></br></span>
+        }
+    }
+
+    const reaction = (author) => {
+        if (author != user.id ){
+            return ""
+        }else{
+            return "disabled"
         }
     }
 
@@ -42,6 +57,9 @@ const NewsComponent = () => {
                         <CardContent>
                             <Typography variant="h5" component="div">
                                 {post.title}
+                            </Typography>
+                            <Typography variant="body2" component="div">
+                                <Reactions user={user} post={post} disabled={reaction(post.user)} />
                             </Typography>
                             <Typography variant="body2">
                                 {post.text}
@@ -76,6 +94,9 @@ const NewsComponent = () => {
                         <CardContent>
                             <Typography variant="h5" component="div" key={index}>
                                 {post.title}
+                            </Typography>
+                            <Typography variant="body2" component="div">
+                                <Reactions user={user} post={post} disabled={reaction(post.user)} />
                             </Typography>
                             <Typography variant="body2">
                                 {post.text}
