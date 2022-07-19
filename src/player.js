@@ -1,19 +1,11 @@
- import $ from "jquery";
+import httpClient from "./services/httpClient";
 
-  function getPlaylist(playlistPk, method, playerId, currentUrl) {
-
-    $.ajax({
-        url: `http://127.0.0.1:8000/api/v1/playlist/${playlistPk}/`,
-        type: 'GET',
-        dataType: 'json',
-        success: function (result) {
-            var data = JSON.stringify(result);
-            changeTrack(playerId, method, data, currentUrl);
-        },
-        error: function () {
-            alert('something went wrong');
-        }
-    })
+  function getPlaylist (playlistPk, method, playerId, currentUrl) {
+    httpClient.get(`playlist/${playlistPk}/`)
+      .then((response) => {
+        var data = JSON.stringify(response.data);
+        changeTrack(playerId, method, data, currentUrl);
+      })
   }
 
   function updatePlayer(playerId, urlTrack, cover, trackName) {
@@ -27,8 +19,9 @@
       coverTrack.style.display = 'block';
       coverTrack.style.backgroundImage=`url('${cover}')`;
     }
-    $(`#play-btn-${playerId}`).removeClass("pause");
-    $(`#play-btn-${playerId}`).addClass("button");
+    const playBtn = document.getElementById(`play-btn-${playerId}`)
+    playBtn.classList.remove("pause");
+    playBtn.classList.add("button");
     document.getElementById(`track-name-${playerId}`).innerText = trackName;
   }
 
@@ -180,8 +173,8 @@
         var listPlayers = document.getElementsByClassName("audio-player");
         var indexesArray = []
         for (var i = 0; i < listPlayers.length; i++){
-        indexesArray.push(listPlayers[i].getAttribute('name'));
+          indexesArray.push(listPlayers[i].getAttribute('name'));
         }
-        initPlayers($("[id^=player-container-]").length, indexesArray);
+        initPlayers(listPlayers.length, indexesArray);
     }
   , 1000)

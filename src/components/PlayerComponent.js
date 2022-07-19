@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import httpClient from "../services/httpClient.js";
-import "../App.js"
+import "../Player.css"
 import "../player.js"
-import $ from "jquery";
+import calculateTotalValue from "../utils/calculateTotalValue.js";
+import calculateCurrentValue from "../utils/calculateCurrentValue.js";
 
 const Player = ({trackUrl, index, cover, id}) => {
     const [track, setTrack] = useState({})
@@ -22,38 +23,16 @@ const Player = ({trackUrl, index, cover, id}) => {
         getTracks();
     }, [])
 
-    function calculateTotalValue(length) {
-        var minutes = Math.floor(length / 60),
-            seconds_int = length - minutes * 60,
-            seconds_str = seconds_int.toString(),
-            seconds = seconds_str.substr(0, 2),
-            time = minutes + ":" + seconds;
-        return time;
-    }
-      
-    function calculateCurrentValue(currentTime) {
-        var current_hour = parseInt(currentTime / 3600) % 24,
-            current_minute = parseInt(currentTime / 60) % 60,
-            current_seconds_long = currentTime % 60,
-            current_seconds = current_seconds_long.toFixed(),
-            current_time =
-                (current_minute < 10 ? "0" + current_minute : current_minute) +
-                ":" +
-                (current_seconds < 10 ? "0" + current_seconds : current_seconds);
-      
-        return current_time;
-    }
-
     const initProgressBar = (num) => {
         var player = document.getElementById(`player-${num.index}`);
         var length = player.duration;
         var current_time = player.currentTime;
     
         var totalLength = calculateTotalValue(length);
-        $(`.end-time-${num.index}`).html(totalLength);
+        document.getElementsByClassName(`end-time-${num.index}`)[0].innerHTML = totalLength
     
         var currentTime = calculateCurrentValue(current_time);
-        $(`.start-time-${num.index}`).html(currentTime);
+        document.getElementsByClassName(`start-time-${num.index}`)[0].innerHTML = currentTime
 
         var progressbar = document.getElementById(`seekObj-${num.index}`);
         progressbar.value = player.currentTime / player.duration;
@@ -61,8 +40,8 @@ const Player = ({trackUrl, index, cover, id}) => {
     
         var currentTime = calculateCurrentValue(current_time);
         if (player.currentTime === player.duration) {
-            $(`#play-btn-${num.index}`).removeClass("pause");
-            $(`#play-btn-${num.index}`).addClass("button");
+            document.getElementById(`play-btn-${num.index}`).classList.remove("pause");
+            document.getElementById(`play-btn-${num.index}`).classList.add("button");
         }
     
         function seek(evt) {

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import httpClient from "../services/httpClient";
 import {useParams} from "react-router-dom";
-import "../App.css"
 import "../player.js"
 import Pagination from "react-js-pagination";
 import Card from '@mui/material/Card';
