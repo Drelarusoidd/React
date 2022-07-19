@@ -33,7 +33,6 @@ const NewsComponent = () => {
         getNews();
     }, [page])
 
-
     const typeLink = (data, index) => {
         if (data?.type === 'track'){
             return <Player index={index} trackUrl={data?.track} cover={data?.cover} id={data?.id} />
