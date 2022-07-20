@@ -87,7 +87,7 @@ const NewsComponent = () => {
                             </Card>
                         </Grid>
                 ))}
-                    {reaction(news.results[0].user)
+                    {isAuthor(news.results[0].user)
                      ? <></>
                      : <>
                             <Grid item xs={2} sx={{position: 'fixed', top: '10px', left: '90%'}}>
@@ -144,7 +144,7 @@ const NewsComponent = () => {
                         </Card>
                     </Grid>
                 ))}
-                    {reaction(news.results[0].user)
+                    {isAuthor(news.results[0].user)
                      ? <></>
                      : <>
                             <Grid item xs={2} sx={{position: 'fixed', top: '10px', left: '90%'}}>
