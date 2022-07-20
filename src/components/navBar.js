@@ -28,18 +28,7 @@ export default function NavBar() {
             <Box sx={{ flexGrow: 1 }}>
                 <AppBar position="static">
                     <Toolbar>
-                    <IconButton
-                size="large"
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                sx={{ mr: 2 }}
-            >
-                <AudiotrackRoundedIcon /> {/* just a clickable icon. Assign menu items later */}
-            </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                <Button component={Link} to="/" color="inherit">Musichub</Button>
-            </Typography>
+                        <MainNavbuttons />
                             <Button component={Link} to="/profile" color="inherit">Profile</Button>
                             <Button component={Link} to="/logout" color="inherit">Logout</Button>
                     </Toolbar>
