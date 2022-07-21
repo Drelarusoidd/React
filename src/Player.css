@@ -81,7 +81,7 @@
   .audio-player .mute {
       background-image: url("https://www.svgrepo.com/show/389505/volume-x.svg");
       background-size: cover;
-      margin: 4rem 0 0 1.2rem;
+      margin: 4rem 0 0 1rem;
       width: 25px;
       height: 25px;
   }
@@ -92,6 +92,15 @@
       margin: 4rem 0 0 1rem;
       width: 25px;
       height: 25px;
+  }
+
+  .volume {
+    display: block;
+    padding-left: 2%;
+  }
+
+  .volume:hover .volume-slider{
+    display: block;
   }
   
   .audio-player .previous{
@@ -113,8 +122,8 @@
   .audio-player .volume-slider {
       display: none;
       position: relative;
-      top: 0.2rem;
-      left: -1.1rem;
+      top: -5.3rem;
+      left: 1.5rem;
       margin-bottom: 10%;
       width: 10px;
       height: 60px;
@@ -122,7 +131,7 @@
       transform: rotate(180deg);
       z-index: 2;
   }
-  
+
   .audio-player .volume-percent {
       background-color: #f50;
       border-bottom: 2px solid;
