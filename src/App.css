@@ -1,3 +1,5 @@
+@import  'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css';
+
 .sign-up {
   margin-top:10%; 
   width: 25%;
@@ -9,7 +11,7 @@
   flex-direction: column;
 }
 
-.button {
+.button-login {
   margin-top:5%;
   padding: 2% 5%;
   background:#198754;
