@@ -3,7 +3,7 @@ import httpClient from "./httpClient";
 const getPlaylist = (playlistPk) => {
     return httpClient.get(`playlist/${playlistPk}/`)
         .then((response) => {
-            return JSON.stringify(response.data)
+            return response.data
         })
 }
 

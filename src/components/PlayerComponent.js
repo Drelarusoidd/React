@@ -48,7 +48,6 @@ const Player = ({id}) => {
     }
 
     const handleVolume = (event) => {
-        console.log('this');
         const sliderHeight = window.getComputedStyle(volumeSlider.current).height;
         const newVolume = event.nativeEvent.offsetY / parseInt(sliderHeight);
         audio.current.volume = newVolume;
@@ -62,17 +61,15 @@ const Player = ({id}) => {
         progress.current.value = percent;
     }
 
-    const handleNextBtn = async() => {
+    const handleChangeTrack = (rotation) => async() => {
         const response = await getPlaylist(track.playlist);
-        const [urlTrack, cover, trackName] = changeTrack('next', response, audio.current.src);
+        const [urlTrack, cover, trackName] = changeTrack(rotation, response, audio.current.src);
         handleUpdatePlayer(urlTrack, cover, trackName);
     }
 
-    const handlePreviousBtn = async() => {
-        const response = await getPlaylist(track.playlist);
-        const [urlTrack, cover, trackName] = changeTrack('previous', response, audio.current.src);
-        handleUpdatePlayer(urlTrack, cover, trackName);
-    }
+    const handleNextBtn = handleChangeTrack('next');
+
+    const handlePreviousBtn = handleChangeTrack('previous');
 
     const handleUpdatePlayer = (urlTrack, cover, trackName) => {
         audio.current.src = urlTrack
@@ -104,31 +101,29 @@ const Player = ({id}) => {
     }
 
     return (
-        <>
-            <div className="audio-player">
-                <div id='play-btn' className={isPlaying ? 'pause' : 'button'} onClick={handlePlayBtn}></div>
-                <div id='previous' className="previous" onClick={handlePreviousBtn}></div>
-                <div id='next' className="next" name={track.playlist} onClick={handleNextBtn}></div>
-                <div className="volume">
-                <div id='volume-btn' className={mute ? 'mute' : 'unmute'} ref={volumeBtn} onClick={handleVolumeMute}></div>
-                <div id='volume-slider' className="volume-slider" ref={volumeSlider} onClick={(event) => {handleVolume(event)}}>
-                    <div id='volume-percent' className="volume-percent" ref={volumePercent}></div>
-                </div>
-                </div>
-                <div className="audio-wrapper" id='player-container'>
-                    <audio ref={audio} id='player' value={track.playlist} onTimeUpdate={initProgressBar} src={track.track}></audio>
-                </div>
-                <div className="player-controls scrubber">
-                    <p style={{margin: '0'}}><span id='track-name'>{nameTrack ? nameTrack : track.name}</span> <small> by </small> {user.username} </p>
-                    <span id="seekObjContainer">
-                        <progress id='seekObj' value="0" max="1" ref={progress} onClick={(event) => {handleProgress(event)}}></progress>
-                    </span>
-                    <small className='start-time' style={{float: 'left', position: 'relative', left: '20px', top: '30px', fontSize: '12px'}}>{startTime}</small>
-                    <small className='end-time'  style={{float: 'right', position: 'relative', right: '20px', top: '30px', fontSize: '12px'}}>{endTime}</small>
-                </div>
-                <div className="album-image" id='cover' style={{backgroundImage: `url(${track.cover})`}} ref={coverTrack}></div>
+        <div className="audio-player">
+            <div id='play-btn' className={isPlaying ? 'pause' : 'button'} onClick={handlePlayBtn}></div>
+            <div id='previous' className="previous" onClick={handlePreviousBtn}></div>
+            <div id='next' className="next" name={track.playlist} onClick={handleNextBtn}></div>
+            <div className="volume">
+            <div id='volume-btn' className={mute ? 'mute' : 'unmute'} ref={volumeBtn} onClick={handleVolumeMute}></div>
+            <div id='volume-slider' className="volume-slider" ref={volumeSlider} onClick={(event) => {handleVolume(event)}}>
+                <div id='volume-percent' className="volume-percent" ref={volumePercent}></div>
             </div>
-        </>
+            </div>
+            <div className="audio-wrapper" id='player-container'>
+                <audio ref={audio} id='player' value={track.playlist} onTimeUpdate={initProgressBar} src={track.track}></audio>
+            </div>
+            <div className="player-controls scrubber">
+                <p style={{margin: '0'}}><span id='track-name'>{nameTrack ? nameTrack : track.name}</span> <small> by </small> {user.username} </p>
+                <span id="seekObjContainer">
+                    <progress id='seekObj' value="0" max="1" ref={progress} onClick={(event) => {handleProgress(event)}}></progress>
+                </span>
+                <small className='start-time' style={{float: 'left', position: 'relative', left: '20px', top: '30px', fontSize: '12px'}}>{startTime}</small>
+                <small className='end-time'  style={{float: 'right', position: 'relative', right: '20px', top: '30px', fontSize: '12px'}}>{endTime}</small>
+            </div>
+            <div className="album-image" id='cover' style={{backgroundImage: `url(${track.cover})`}} ref={coverTrack}></div>
+        </div>
     )
 }
 
