@@ -38,6 +38,16 @@ const Post = () => {
         const response = await PostService(formField);
     }
 
+    const boxStyle = {
+        position: 'absolute',
+        top:'50%', 
+        left: '50%', 
+        transform: 'translate(-50%, -50%)', 
+        width: '500px', 
+        bgcolor: 'background.paper', 
+        padding: '2%',
+    }
+
     const handleRecentTracks = (event) => {setTrackId(event.target.value)}
     const handleTitle = (event) => {setTitle(event.target.value)}
     const handleText = (event) => {setText(event.target.value)}
@@ -54,7 +64,7 @@ const Post = () => {
     const haveTracks = (tracks) => tracks.length != 0
 
     return (
-        <Box sx={{position: 'absolute', top:'50%', left: '50%', transform: 'translate(-50%, -50%)', width: '500px', bgcolor: 'background.paper', padding: '2%'}}>
+        <Box sx={boxStyle}>
             <Typography variant="h6" id="modal-modal-title" sx={{paddingBottom: '2%'}}>
                 Add post:
             </Typography>
