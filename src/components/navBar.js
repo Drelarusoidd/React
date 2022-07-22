@@ -18,16 +18,16 @@ export default function NavBar() {
             <AppBar position="static">
                 <Toolbar>
                     <MainNavbuttons />
-                    { isLogin ? 
-                    <div> 
-                    <Button component={Link} to="/profile" color="inherit"> {user}'s Profile </Button>
-                    <Button component={Link} to="/logout" color="inherit">Logout</Button> 
-                    </div>
-                    : 
-                    <div>
-                    <Button component={Link} to="/login" color="inherit">Login</Button>
-                    <Button component={Link} to="/register" color="inherit">Create account</Button> 
-                    </div>
+                    {isLogin ?
+                        <>
+                            <Button component={Link} to="/profile" color="inherit"> {user}'s Profile </Button>
+                            <Button component={Link} to="/logout" color="inherit">Logout</Button>
+                        </>
+                        :
+                        <>
+                            <Button component={Link} to="/login" color="inherit">Login</Button>
+                            <Button component={Link} to="/register" color="inherit">Create account</Button>
+                        </>
                     }
                 </Toolbar>
             </AppBar>
