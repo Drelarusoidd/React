@@ -13,30 +13,24 @@ export default function NavBar() {
     const { user } = useContext(Context)
     const { isLogin } = useContext(Context)
 
-    if (isLogin === true) {
-        return (
-            <Box sx={{ flexGrow: 1 }}>
-                <AppBar position="static">
-                    <Toolbar>
-                        <MainNavbuttons />
-                        <Button component={Link} to="/profile" color="inherit"> {user}'s Profile </Button>
-                        <Button component={Link} to="/logout" color="inherit">Logout</Button>
+    return (
+        <Box sx={{ flexGrow: 1 }}>
+            <AppBar position="static">
+                <Toolbar>
+                    <MainNavbuttons />
+                    { isLogin ? 
+                    <div> 
+                    <Button component={Link} to="/profile" color="inherit"> {user}'s Profile </Button>
+                    <Button component={Link} to="/logout" color="inherit">Logout</Button> 
+                    </div>
+                    : 
+                    <div>
+                    <Button component={Link} to="/login" color="inherit">Login</Button>
+                    <Button component={Link} to="/register" color="inherit">Create account</Button> 
+                    </div>
+                    }
                 </Toolbar>
             </AppBar>
-            </Box >
-        );
-    }
-    else {
-        return (
-            <Box sx={{ flexGrow: 1 }}>
-                <AppBar position="static">
-                    <Toolbar>
-                        <MainNavbuttons />
-                        <Button component={Link} to="/login" color="inherit">Login</Button>
-                        <Button component={Link} to="/register" color="inherit">Create account</Button>
-                    </Toolbar>
-                </AppBar>
-            </Box>
-        )
-    }
+        </Box >
+    );
 }

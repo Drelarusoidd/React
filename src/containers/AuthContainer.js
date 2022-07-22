@@ -18,11 +18,7 @@ const AuthContainer = () => {
         await signIn(username, password)
         setUser(username)
         const token = localStorage.getItem('access');
-        if (token) {
-            setIsLogin(true);
-        } else {
-            setIsLogin(false);
-        }
+        setIsLogin(!!token);
         navigate('/')
     }
 
