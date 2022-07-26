@@ -10,7 +10,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-const PlaylistContainer = () => {
+const PlaylistContainer = ({updatePlaylist}) => {
 
     const [name, setName] = useState("");
     const [genre, setGenre] = useState("");
@@ -35,9 +35,12 @@ const PlaylistContainer = () => {
 
         formField.append('name', name);
         formField.append('genre', genre);
-        formField.append('year', convertDate(date));
         formField.append('cover', cover);
-        await PlaylistService(formField);
+        if (date) {
+            formField.append('year', convertDate(date));
+        }
+        const response = await PlaylistService(formField);
+        updatePlaylist(response.created_at);
     }
     
     const handleName = (event) => setName(event.target.value)
