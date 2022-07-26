@@ -6,6 +6,7 @@ import Logout from './containers/LogoutContainer';
 import NavBar from "./components/navBar";
 import { ContextProvider } from "./services/auth-context";
 import NewsComponent from "./components/NewsComponent";
+import UploadContainer from "./containers/UploadContainer";
 
 export default function App() {
     return (
@@ -18,6 +19,7 @@ export default function App() {
                     <Route path="/logout" element={<Logout />} />
                     <Route path="/track/:pk" element={<ShowTracks />} />
                     <Route path="/feed/:pk" element={<NewsComponent/>} />
+                    <Route path="/upload/" element={<UploadContainer />} />
                 </Routes>
             </BrowserRouter>
         </ContextProvider>
