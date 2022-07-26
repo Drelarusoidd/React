@@ -83,6 +83,7 @@ const UploadContainer = () =>{
                 optionsArray.push(option.value)
             }
         })
+        setRecentPlaylists(optionsArray);
         setDisabled(!optionsArray.length > 0);
     }
  
