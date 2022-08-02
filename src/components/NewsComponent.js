@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import httpClient from "../services/httpClient";
 import {useParams} from "react-router-dom";
-import "../App.css"
-import "../player.js";
+import "../App.css";
+import Reactions from "../containers/ReactionsContatiner";
 import Pagination from "react-js-pagination";
 import FeedContainer from "../containers/FeedContainer";
 
