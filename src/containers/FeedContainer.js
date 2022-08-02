@@ -26,14 +26,6 @@ const FeedContainer = (news, user) => {
         }
     }
 
-    const reaction = (author) => {
-        if (author != user.id ){
-            return ""
-        }else{
-            return "disabled"
-        }
-    }
-
     return(
         <Box component="div">
             <Grid container spacing={1}>
@@ -45,7 +37,7 @@ const FeedContainer = (news, user) => {
                                 {post.title}
                             </Typography>
                             <Typography variant="body2" component="div">
-                                <Reactions user={user} post={post} disabled={reaction(post.user)} />
+                                <Reactions user={user} post={post} postUser={post.user} />
                             </Typography>
                             <Typography variant="body2">
                                 {post.text}
