@@ -1,5 +1,6 @@
 import httpClient from '../services/httpClient';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import PostService from '../services/PostService';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -12,7 +13,7 @@ const Post = () => {
     const [title, setTitle] = useState("");
     const [text, setText] = useState("");
     const [images, setImages] = useState(null);
-    const [recentTracks, setRecentTracks] = useState({});
+    const [recentTracks, setRecentTracks] = useState([]);
     const [trackId, setTrackId] = useState("");
 
     useEffect (() => {
@@ -63,6 +64,8 @@ const Post = () => {
 
     const haveTracks = (tracks) => tracks.length != 0
 
+    console.log(recentTracks);
+
     return (
         <Box sx={boxStyle}>
             <Typography variant="h6" id="modal-modal-title" sx={{paddingBottom: '2%'}}>
@@ -93,15 +96,16 @@ const Post = () => {
                 ?<><label for="recent_tracks">Choose recent track :</label> <br></br>
                 <select name="recent_tracks" id="recent_tracks" onChange={handleRecentTracks} style={{width: '50%'}}>
                     <option value=''>List of tracks</option>
-                    {recentTracks.results?.map((track) => (
+                    {recentTracks.map((track) => (
                         <option value={track.id}>{track.name}</option>
                     ))}
                 </select>
                 <br></br>
                 </>
-                :<p><a href='#'>Upload track</a></p> // TODO link to upload track
+                :<Link to="/upload">Upload track</Link>
             }
-
+            
+            <br></br>
             <Button 
                 type="submit"
                 sx={{marginTop: '2%'}}

@@ -10,7 +10,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
-const FeedContainer = (news, user) => {
+const FeedContainer = ({news, user}) => {
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => setOpen(true);
@@ -37,7 +37,7 @@ const FeedContainer = (news, user) => {
                                 {post.title}
                             </Typography>
                             <Typography variant="body2" component="div">
-                                <Reactions user={user} post={post} postUser={post.user} />
+                                <Reactions userId={user.id} post={post} postUser={post.user} />
                             </Typography>
                             <Typography variant="body2">
                                 {post.text}
@@ -54,7 +54,7 @@ const FeedContainer = (news, user) => {
             {isAuthor(news.results[0].user)
              ? null
              : <>
-                    <Grid item xs={2} sx={{position: 'fixed', top: '10px', left: '90%'}}>
+                    <Grid item xs={2} sx={{position: 'fixed', top: '70px', left: '90%'}}>
                         <Button variant="outlined" onClick={handleOpen}>Add post</Button>
                     </Grid>
                 <Modal

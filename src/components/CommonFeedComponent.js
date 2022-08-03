@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import httpClient from "../services/httpClient";
-import {useParams} from "react-router-dom";
-import "../App.css";
-import Pagination from "react-js-pagination";
 import FeedContainer from "../containers/FeedContainer";
+import Pagination from "react-js-pagination";
 
-const NewsComponent = () => {
-    const params = useParams();
-    const pk = params.pk;
+const CommonFeed = () =>{
     const [news, setNews] = useState({});
     const [page, setPage] = useState(1);
     const [user, setUser] = useState({});
@@ -16,7 +12,7 @@ const NewsComponent = () => {
 
     useEffect(() =>{
         const getNews = async() =>{
-            const newsData = await httpClient.get(`/feed/${pk}/?page=${page.toString()}`);
+            const newsData = await httpClient.get(`/subscribe/?page=${page.toString()}`);
             setNews(newsData.data);
             const userData = await httpClient.get('/profile/');
             setUser(userData.data);
@@ -45,7 +41,7 @@ const NewsComponent = () => {
         return(
             <FeedContainer news={news} user={user} />
         )
-    }
+    }    
 }
 
-export default NewsComponent;
+export default CommonFeed;

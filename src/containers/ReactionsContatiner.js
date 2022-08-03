@@ -1,7 +1,7 @@
 import React from "react";
 import httpClient from "../services/httpClient";
 
-const Reactions = ({user, post, postUser}) => {
+const Reactions = ({userId, post, postUser}) => {
 
     const handleReactions = (reaction, id) =>{
         if (reaction === 'like'){
@@ -12,15 +12,15 @@ const Reactions = ({user, post, postUser}) => {
     }
 
     const reaction = (author) => {
-        if (author != user.id ){
+        if (author != userId ){
             return ""
         }else{
             return "disabled"
         }
     }
 
-    if (user.id){
-        if (post.likes.includes(user.id)){
+    if (userId){
+        if (post.likes.includes(userId)){
             return(
                 <form>
                     <div style={{ marginBottom: '1%', marginTop: '1%'}}>
@@ -39,7 +39,7 @@ const Reactions = ({user, post, postUser}) => {
                     </div>
                 </form>
             )
-        }else if (post.dislikes.includes(user.id)){
+        }else if (post.dislikes.includes(userId)){
             return (
                 <form>
                     <div style={{ marginBottom: '1%', marginTop: '1%'}}>

@@ -7,6 +7,7 @@ import NavBar from "./components/navBar";
 import { ContextProvider } from "./services/auth-context";
 import NewsComponent from "./components/NewsComponent";
 import UploadContainer from "./containers/UploadContainer";
+import CommonFeed from "./components/CommonFeedComponent";
 
 export default function App() {
     return (
@@ -20,6 +21,7 @@ export default function App() {
                     <Route path="/track/:pk" element={<ShowTracks />} />
                     <Route path="/feed/:pk" element={<NewsComponent/>} />
                     <Route path="/upload/" element={<UploadContainer />} />
+                    <Route path="/" element={<CommonFeed />} />
                 </Routes>
             </BrowserRouter>
         </ContextProvider>
