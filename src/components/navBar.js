@@ -7,11 +7,13 @@ import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import MainNavbuttons from './mainNavbuttons';
 import Context from '../services/auth-context';
+import store from '../store';
 
-
-export default function NavBar() {
-    const { user } = useContext(Context)
-    const { isLogin } = useContext(Context)
+function NavBar() {
+    // const { user } = useContext(Context)
+    // const { isLogin } = useContext(Context)
+    const isLogin = store.getState().loginReducer.isLogin
+    const user = 'user'
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -34,3 +36,5 @@ export default function NavBar() {
         </Box >
     );
 }
+
+export default NavBar;
