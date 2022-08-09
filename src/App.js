@@ -5,12 +5,16 @@ import ShowTracks from './components/showTracks';
 import Logout from './containers/LogoutContainer';
 import NavBar from "./components/navBar";
 import { ContextProvider } from "./services/auth-context";
+import { Provider } from 'react-redux';
 import NewsComponent from "./components/NewsComponent";
 import UploadContainer from "./containers/UploadContainer";
+import CommonFeed from "./components/CommonFeedComponent";
+import store from "./store";
 
 export default function App() {
     return (
-        <ContextProvider>
+        <Provider store={store}>
+        {/* <ContextProvider> */}
             <BrowserRouter>
                 <NavBar />
                 <Routes>
@@ -22,6 +26,7 @@ export default function App() {
                     <Route path="/upload/" element={<UploadContainer />} />
                 </Routes>
             </BrowserRouter>
-        </ContextProvider>
+        {/* </ContextProvider> */}
+        </Provider>
     );
 }

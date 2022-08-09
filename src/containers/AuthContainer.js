@@ -6,19 +6,29 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useNavigate } from "react-router-dom";
 import Context from "../services/auth-context";
+import { connect } from 'react-redux';
+import store from "../store";
+import { logined } from "../actions";
+import { addUsername } from "../actions";
 
-const AuthContainer = () => {
+const AuthContainer = ({dispatch}) => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
-    const { setUser } = useContext(Context)
-    const { setIsLogin } = useContext(Context)
+    // const { setUser } = useContext(Context)
+    // const { setIsLogin } = useContext(Context)
     const navigate = useNavigate()
 
     const Auth = async () => {
         await signIn(username, password)
-        setUser(username)
+        // setUser(username)
+        console.log('before: ')
+        console.log(store.getState())
+        dispatch(logined)
+        dispatch(addUsername(username))
+        console.log('after: ')
+        console.log(store.getState())
         const token = localStorage.getItem('access');
-        setIsLogin(!!token);
+        // setIsLogin(!!token);
         navigate('/')
     }
 
@@ -66,4 +76,4 @@ const AuthContainer = () => {
     );
 }
 
-export default AuthContainer;
+export default connect()(AuthContainer);
